@@ -1,0 +1,30 @@
+# SHADOWLINE — Combine-to-Game Movement Intelligence
+
+> SHADOWLINE is the NFL Big Data Bowl 2027 research platform built by AI AZIMARA (aiazimara.com). It asks one narrow, pre-registered question: do pre-draft **movement-quality** characteristics, measured by 10 Hz Combine sensor tracking — how efficiently a defensive back decelerates, re-orients and re-accelerates through a direction change — predict NFL coverage performance **beyond traditional Combine measurements**?
+
+## What it is
+- A public, artifact-driven analytics front-end for the **Mirror Response Index (MRI)** — a five-component kinematic measure of direction-change quality extracted from Zebra 10 Hz Combine tracking data (2023–2025 draft classes).
+- Fully reproducible: `python -m shadowline all` (audit → quality → features → coverage → statistics). Every number on the site is computed from the competition package; synthetic fixtures are always labelled and never used as evidence.
+- Honest about results: the pre-registered decision rule was applied unchanged; the primary hypothesis **was not supported** (see Results). The submission reports the null.
+
+## Key facts
+- Competition: NFL Big Data Bowl 2027 (kaggle.com/competitions/nfl-big-data-bowl-2027), Combine-to-NFL-performance theme. Deadline: 2027-01-06.
+- Data: 9 competition files, ~2.20 GiB, CC BY-NC 4.0 — 510 rookies (draft classes 2023–2025), 6,307 Combine drill attempts, 1,002 games, 3 tracking seasons (2023–2025). 22.6M frame-level tracking rows.
+- MRI components: reorientation latency, turn-speed retention, directional transition efficiency, exit acceleration, attempt consistency. Composite standardised within position × draft-year cohorts (robust z, latency sign-flipped, ≥3 components required).
+- Coverage analysis: regular-season pass plays where a defensive back participates; outcome = separation at pass-forward (tracking-derived, cross-checked against host column). ≥20 REG coverage opportunities required for inclusion.
+- Statistical validation: player-grouped 5-fold CV, player-clustered bootstrap CIs, within-player permutation inference (2,000 permutations, fixed seed), Huber robust regression, leave-one-draft-cohort-out, Benjamini–Hochberg FDR across secondary associations. No outcome-derived variable may enter a feature (leakage assertion enforced).
+
+## Results (run 2026-11-14, reproducible)
+- 35,785 coverage reps analysed across 107 DBs; 23 DBs met the ≥20-play exposure bar.
+- Primary hypothesis **not supported**: partial Spearman ρ = +0.230 (permutation p = 0.322; bootstrap 95% CI [−0.291, +0.737]); Δ(B−A) OOS CI [−0.400, +0.769]; notebook implementation: ρ = −0.151 (p = 0.490, perm p = 1.00).
+- No BH-FDR-corrected secondary component survives (all q = 0.943); game mirror latency does not replicate (p = 0.919).
+- Claim: at this sample size, Combine movement quality beyond the stopwatch is not detectable in-game — an honest, pre-registered null.
+
+## Links
+- https://shadowline.aiazimara.com/ — live site (artifact-driven; every value computed by the pipeline)
+- https://shadowline.aiazimara.com/sitemap.xml
+- https://aiazimara.com — the studio behind SHADOWLINE
+- https://www.kaggle.com/competitions/nfl-big-data-bowl-2027 — competition
+
+## Citation
+SHADOWLINE (2026). Combine-to-Game Movement Intelligence for Defensive Backs — NFL Big Data Bowl 2027. AI AZIMARA. https://shadowline.aiazimara.com/

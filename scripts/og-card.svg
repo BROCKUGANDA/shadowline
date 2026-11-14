@@ -1,0 +1,72 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#07110d"/>
+      <stop offset="1" stop-color="#040a08"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.72" cy="0.62" r="0.55">
+      <stop offset="0" stop-color="#34d399" stop-opacity="0.28"/>
+      <stop offset="0.55" stop-color="#34d399" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#34d399" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="trail" x1="0.15" y1="0.78" x2="0.85" y2="0.28">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="0.45" stop-color="#34d399"/>
+      <stop offset="0.52" stop-color="#fbbf24"/>
+      <stop offset="0.6" stop-color="#fbbf24"/>
+      <stop offset="0.75" stop-color="#34d399"/>
+      <stop offset="1" stop-color="#a7f3d0"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+  </defs>
+
+  <!-- backdrop -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- field: faint yard lines -->
+  <g stroke="#34d399" stroke-opacity="0.16" stroke-width="2">
+    <line x1="0" y1="470" x2="1200" y2="470"/>
+    <line x1="0" y1="418" x2="1200" y2="418"/>
+    <line x1="0" y1="516" x2="1200" y2="516"/>
+    <line x1="0" y1="382" x2="1200" y2="382"/>
+    <line x1="0" y1="552" x2="1200" y2="552"/>
+  </g>
+  <line x1="1030" y1="350" x2="1030" y2="590" stroke="#34d399" stroke-opacity="0.28" stroke-width="3" stroke-dasharray="14 10"/>
+
+  <!-- 10 Hz tracking dot trail: decel → plant → re-accel -->
+  <path d="M120,585 C360,582 430,560 520,505 C610,450 640,390 745,330 C850,270 950,210 1095,150"
+        fill="none" stroke="url(#trail)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+  <path d="M120,585 C360,582 430,560 520,505 C610,450 640,390 745,330 C850,270 950,210 1095,150"
+        fill="none" stroke="#a7f3d0" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1 26" opacity="0.9"/>
+  <!-- plant marker -->
+  <circle cx="645" cy="385" r="11" fill="#fbbf24" stroke="#0b0f0c" stroke-width="3"/>
+  <text x="663" y="390" font-family="Geist, 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="700" fill="#fbbf24" letter-spacing="1">PLANT</text>
+
+  <!-- SHADOWLINE mark -->
+  <g transform="translate(88,96)">
+    <rect x="0" y="0" width="84" height="84" rx="18" fill="#0e1712" stroke="url(#mark)" stroke-width="2.5"/>
+    <g transform="translate(42 42) rotate(-20)">
+      <ellipse rx="26" ry="14.5" fill="#8a4a24" stroke="#5f3016" stroke-width="2"/>
+      <rect x="-16.5" y="-1.8" width="4.2" height="3.6" rx="0.8" fill="#f4f1e8"/>
+      <rect x="-9.5" y="-1.8" width="4.2" height="3.6" rx="0.8" fill="#f4f1e8"/>
+      <rect x="5.3" y="-1.8" width="4.2" height="3.6" rx="0.8" fill="#f4f1e8"/>
+      <rect x="12.3" y="-1.8" width="4.2" height="3.6" rx="0.8" fill="#f4f1e8"/>
+      <rect x="-1" y="-2" width="2" height="4" rx="0.7" fill="#34d399"/>
+    </g>
+  </g>
+
+  <!-- Wordmark + copy -->
+  <text x="88" y="262" font-family="Geist, 'Helvetica Neue', Arial, sans-serif" font-size="96" font-weight="800" letter-spacing="14" fill="#f4f1e8">SHADOWLINE</text>
+  <text x="90" y="322" font-family="Geist, 'Helvetica Neue', Arial, sans-serif" font-size="27" font-weight="500" letter-spacing="1.5" fill="#34d399">COMBINE-TO-GAME MOVEMENT INTELLIGENCE</text>
+  <text x="90" y="372" font-family="Geist, 'Helvetica Neue', Arial, sans-serif" font-size="19.5" font-weight="400" fill="#9ca3af">Do 10 Hz Combine sensor tracking predict regular-season coverage</text>
+  <text x="90" y="400" font-family="Geist, 'Helvetica Neue', Arial, sans-serif" font-size="19.5" font-weight="400" fill="#9ca3af">performance beyond the stopwatch? A pre-registered answer.</text>
+
+  <!-- Footer meta -->
+  <line x1="90" y1="520" x2="360" y2="520" stroke="#34d399" stroke-width="2"/>
+  <text x="90" y="556" font-family="Geist, 'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="600" letter-spacing="2.2" fill="#e5e7eb">NFL BIG DATA BOWL 2027</text>
+  <text x="90" y="582" font-family="Geist, 'Helvetica Neue', Arial, sans-serif" font-size="14.5" fill="#6b7280">shadowline.aiazimara.com  ·  by AI AZIMARA</text>
+</svg>
