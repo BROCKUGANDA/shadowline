@@ -50,15 +50,23 @@ jobs:
         working-directory: demo
         run: npx hyperframes render . -o SHADOWLINE_demo.mp4
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: shadowline-demo-film
-          path: demo/SHADOWLINE_demo.mp4
-          retention-days: 90
+      # Actions artifact storage is exhausted on this account — stage on disk instead.
+      - name: Stage render on runner
+        run: |
+          mkdir -p /mnt/data/shadowline-demo
+          cp demo/SHADOWLINE_demo.mp4 "/mnt/data/shadowline-demo/SHADOWLINE_demo_${{ github.run_number }}.mp4"
+          cp demo/SHADOWLINE_demo.mp4 /mnt/data/shadowline-demo/SHADOWLINE_demo_latest.mp4
+          ls -la /mnt/data/shadowline-demo/
+          sha256sum /mnt/data/shadowline-demo/SHADOWLINE_demo_latest.mp4
 
-      - name: Attach to release on demo-v* tags
-        if: startsWith(github.ref, 'refs/tags/demo-v')
+      # Release assets don't consume Actions artifact quota — publish/refresh a rolling release.
+      - name: Publish rolling release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: demo-latest
+          name: SHADOWLINE — Demo film (rolling build)
+          body: |
+            Automated build of the SHADOWLINE demo film (rendered on the self-hosted VPS runner from `${{ github.sha }}`).
+            SHADOWLINE — Combine-to-Game Movement Intelligence · NFL Big Data Bowl 2027 · shadowline.aiazimara.com
           files: demo/SHADOWLINE_demo.mp4
+          prerelease: true
