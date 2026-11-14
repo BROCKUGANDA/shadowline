@@ -1,0 +1,54 @@
+# Autoversion — tag and release after a green CI on main.
+#
+# Runs automatically when the CI workflow completes successfully on main.
+# No version is ever bumped by hand: conventional commits since the last
+# v* tag decide the bump (computing logic in scripts/next-release.mjs).
+# A tag is created and pushed; a GitHub Release with generated notes
+# follows it. The repository is never committed back to (no version drift,
+# no CI loop).
+name: Autoversion
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+
+concurrency:
+  group: autoversion-main
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Tag and release
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Compute next version
+        id: next
+        run: |
+          v=$(node scripts/next-release.mjs)
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "computed: $v"
+      - name: Create tag and GitHub Release
+        if: steps.next.outputs.version != 'none'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          v="${{ steps.next.outputs.version }}"
+          git config user.name  "shadowline-bot[bot]"
+          git config user.email "shadowline-bot[bot]@users.noreply.github.com"
+          git tag -a "$v" -m "SHADOWLINE $v"
+          git push origin "$v"
+          gh release create "$v" \
+            --title "SHADOWLINE $v" \
+            --generate-notes

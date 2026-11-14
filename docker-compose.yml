@@ -1,0 +1,48 @@
+# SHADOWLINE deployment composition (audit roadmap P2).
+#
+#   docker compose up -d                          # single instance (default)
+#   docker compose --profile scale up -d          # + Redis for shared state
+#
+# The default profile matches the audited single-instance posture: the
+# in-memory rate limiter and artifact cache are correct for one process.
+# The `scale` profile adds Redis for deployments running multiple app
+# replicas behind a load balancer — wire it with the RateLimitStore
+# interface (src/lib/rate-limit.ts documents the exact INCR/PEXPIRE
+# contract) before scaling beyond one app instance.
+#
+# NOTE: runtime not verified in the audit sandbox (no container runtime);
+# see the commercial audit, F-09/P2, for the honest status.
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      # Fails closed in production if missing/short (audit F-05).
+      SESSION_SECRET: ${SESSION_SECRET:?set SESSION_SECRET (16+ chars) in .env}
+      DATABASE_URL: "file:/app/db/custom.db"
+      NODE_ENV: production
+    volumes:
+      - app-db:/app/db
+      # Mount the pipeline artifacts you want the app to render (read-only).
+      - ./artifacts:/app/artifacts:ro
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:3000/api/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    profiles: ["scale"]
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+volumes:
+  app-db:
+  redis-data:

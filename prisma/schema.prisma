@@ -1,0 +1,22 @@
+// SHADOWLINE web application schema.
+// Scouting reports are user-authored documents: every value inside them is
+// either derived from artifacts/v1 JSON (served through /api/*) or an
+// explicitly-marked placeholder. Nothing is invented.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model ScoutingReport {
+  id             String   @id @default(cuid())
+  title          String
+  playerNflId    String?
+  sections       Json
+  templateVersion String
+  createdAt      DateTime @default(now())
+}

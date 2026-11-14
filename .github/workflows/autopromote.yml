@@ -1,0 +1,73 @@
+# Autopromote — green CI on dev promotes to staging; green CI on staging
+# promotes to main. No human touches the trigger.
+#
+# Promotion is a PR + auto-merge (squash), never a direct push: branch
+# protection on staging and main requires the `ci` check, so the merge
+# only lands when the promoted commit is green on its target branch.
+#
+# Idempotent by design: a missing promotion PR is created; an existing one
+# is re-armed; with nothing to promote the job exits cleanly.
+name: Autopromote
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [dev, staging]
+
+concurrency:
+  group: autopromote-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  promote:
+    name: Promote ${{ github.event.workflow_run.head_branch }}
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+      HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Resolve promotion target
+        id: target
+        run: |
+          case "$HEAD_BRANCH" in
+            dev)     echo "target=staging" >> "$GITHUB_OUTPUT" ;;
+            staging) echo "target=main"    >> "$GITHUB_OUTPUT" ;;
+            *)       echo "no promotion for $HEAD_BRANCH" ; echo "target=" >> "$GITHUB_OUTPUT" ;;
+          esac
+      - name: Ensure promotion PR and arm auto-merge
+        if: steps.target.outputs.target != ''
+        run: |
+          set -euo pipefail
+          TARGET="${{ steps.target.outputs.target }}"
+
+          # Nothing to promote when the head branch has no unique commits.
+          if git diff --quiet "origin/$TARGET" "origin/$HEAD_BRANCH"; then
+            echo "$HEAD_BRANCH == $TARGET content; nothing to promote"; exit 0
+          fi
+
+          number=$(gh pr list --base "$TARGET" --head "$HEAD_BRANCH" \
+                     --state open --json number --jq '.[0].number' 2>/dev/null || true)
+          if [ -z "$number" ]; then
+            number=$(gh pr create \
+              --base "$TARGET" --head "$HEAD_BRANCH" \
+              --title "promote: $HEAD_BRANCH → $TARGET" \
+              --body "Automated promotion of \`$HEAD_BRANCH\` into \`$TARGET\` after CI success on \`$HEAD_BRANCH\`.
+
+          Branch protection requires the \`ci\` check on the promoted head, so this PR auto-merges only when the target-branch CI is green." \
+              --json number --jq '.number')
+            echo "created PR #$number"
+          else
+            echo "reusing open PR #$number"
+          fi
+          gh pr merge "$number" --auto --squash --subject-prefix "promote($HEAD_BRANCH→$TARGET): "
