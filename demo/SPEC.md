@@ -2,7 +2,10 @@
 
 ## Frame & length
 1920×1080, 30 fps, 48 s total. 1920×1080 MP4 (H.264, yuv420p, AAC 48 kHz).
-End card holds 2.5 s. Music: generated sub-pulse ambience + sweep on reveal (ffmpeg synthesis), no VO.
+End card holds 2.5 s. Music: generated sub-pulse ambience + chimes (ffmpeg synthesis), ducked ~8 dB under VO.
+VO (2026-11-14): Kokoro-82M `am_michael`, en-US, normal pace; one line per beat, written to beat:
+hook 0.4s · tension 4.0s · reveal 7.3s · dataset 9.8s · drills 14.4s · mri 19.4s · coverage 24.4s · verdict 29.4s · payoff 35.8s · end 41.0s.
+Script in `assets/audio/vo-script.txt`; lines live in `assets/audio/vo/*.wav`.
 
 ## One thing
 "SHADOWLINE measured whether 10 Hz Combine tracking predicts NFL coverage performance — honestly."

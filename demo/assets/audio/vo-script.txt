@@ -1,0 +1,10 @@
+hook|Can a stopwatch see ten hertz?
+tension|The Combine times everything. It measures almost nothing.
+reveal|Meet SHADOWLINE. Combine-to-game movement intelligence.
+dataset|510 rookies. Sixty-three hundred combine drills. Ten samples per second, tracked at the sensor level.
+drills|Every rep is canonicalized. Only true direction changes produce a mirror response.
+mri|The Mirror Response Index scores how a back decelerates, re-orients, and re-accelerates.
+coverage|Then the only question that matters: does it show up on Sundays, against NFL corners?
+verdict|Rho: plus zero point two three. Permutation p: zero point three two two.
+payoff|The pre-registered rule says no. And we report it anyway.
+end|SHADOWLINE. By AI AZIMARA.
