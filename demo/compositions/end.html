@@ -1,0 +1,29 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #060b09; overflow: hidden; }
+    #bg { position: absolute; inset: 0; object-fit: cover; opacity: .85; }
+    #trail { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+    #mark { position: absolute; left: 50%; top: 37%; width: 210px; height: 210px; transform: translate(-50%, -50%); }
+    #word { position: absolute; left: 0; right: 0; top: 55%; text-align: center; font-family: Inter, sans-serif; font-weight: 800; font-size: 120px; letter-spacing: .2em; color: #f4f1e8; text-indent: .2em; }
+    #cta { position: absolute; left: 0; right: 0; top: 68%; text-align: center; font-family: "JetBrains Mono", monospace; font-size: 30px; color: #34d399; letter-spacing: .18em; }
+    #meta { position: absolute; left: 0; right: 0; bottom: 84px; text-align: center; font-family: "JetBrains Mono", monospace; font-size: 20px; color: #8aa596; }
+  </style>
+  <div id="root" data-composition-id="end" data-width="1920" data-height="1080">
+    <img id="bg" class="clip" data-start="0" data-duration="7.5" src="assets/field_bg.png" alt="" />
+    <img id="trail" class="clip" data-start="0.3" data-duration="7.2" src="assets/trail_overlay.png" alt="10 Hz tracking trail" />
+    <img id="mark" class="clip" data-start="0.4" data-duration="7.1" src="assets/logo-mark.svg" alt="SHADOWLINE mark" />
+    <div id="word" class="clip" data-start="0.7" data-duration="6.8">SHADOWLINE</div>
+    <div id="cta" class="clip" data-start="1.3" data-duration="6.2">shadowline.aiazimara.com</div>
+    <div id="meta" class="clip" data-start="1.8" data-duration="5.7">NFL BIG DATA BOWL 2027 · BY AI AZIMARA</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#bg", { opacity: 0 }, { opacity: .85, duration: 0.8 }, 0);
+    tl.fromTo("#trail", { opacity: 0, x: -120 }, { opacity: 1, x: 0, duration: 1.6, ease: "power2.out" }, 0.3);
+    tl.fromTo("#mark", { opacity: 0, scale: .5, rotate: -30 }, { opacity: 1, scale: 1, rotate: 0, duration: 0.7, ease: "back.out(1.5)" }, 0.4);
+    tl.fromTo("#word", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5 }, 0.7);
+    tl.fromTo("#cta", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 1.3);
+    tl.fromTo("#meta", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 1.8);
+    window.__timelines["end"] = tl;
+  </script>
+</template>

@@ -15,3 +15,9 @@ tests/_mini/
 tracking.duckdb
 submission/
 notebook-run/
+
+# demo film artifacts
+demo/node_modules/
+demo/.hyperframes/
+demo/*.mp4
+demo/logs/

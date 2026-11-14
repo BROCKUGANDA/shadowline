@@ -1,0 +1,23 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #060b09; overflow: hidden; }
+    #shot { position: absolute; inset: 0; object-fit: cover; }
+    #bars { position: absolute; inset: 0; object-fit: contain; background: #060b09; }
+    #kicker { position: absolute; left: 90px; top: 78px; z-index: 6; font-family: "JetBrains Mono", monospace; font-size: 22px; letter-spacing: .3em; color: #f87171; }
+    #sub { position: absolute; right: 100px; bottom: 92px; z-index: 6; font-family: "JetBrains Mono", monospace; font-size: 26px; color: #f4f1e8; background: rgba(6,11,9,.8); border: 1px solid #1e352a; padding: 14px 20px; border-radius: 10px; }
+  </style>
+  <div id="root" data-composition-id="verdict" data-width="1920" data-height="1080">
+    <img id="shot" class="clip" data-start="0" data-duration="2.6" src="assets/captures/11-research.png" alt="Research Evidence and Model Audit module" />
+    <div id="kicker" class="clip" data-start="0.3" data-duration="2.2">THE PRE-REGISTERED TEST</div>
+    <img id="bars" class="clip" data-start="2.7" data-duration="3.8" src="assets/oos_bars.png" alt="Out-of-sample model comparison bars" />
+    <div id="sub" class="clip" data-start="3.3" data-duration="3.1">ρ = +0.230 · perm p = 0.322<br/><span style="color:#8aa596;font-size:19px">95% CI [−0.291, +0.737] · n = 23 · BH-FDR</span></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#shot", { scale: 1.28, transformOrigin: "50% 46%" }, { scale: 1.0, transformOrigin: "50% 46%", duration: 2.4, ease: "power2.inOut" }, 0);
+    tl.fromTo("#bars", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.55, ease: "power3.out" }, 2.7);
+    tl.fromTo("#kicker", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4 }, 0.3);
+    tl.fromTo("#sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, 3.3);
+    window.__timelines["verdict"] = tl;
+  </script>
+</template>

@@ -1,0 +1,16 @@
+{
+  "name": "shadowline-demo-film",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "capture": "node capture.mjs",
+    "assets": "python3 make_assets.py",
+    "lint": "hyperframes check .",
+    "render": "hyperframes render . -o SHADOWLINE_demo.mp4"
+  },
+  "devDependencies": {
+    "hyperframes": "^0.9.43",
+    "playwright": "^1.49.0"
+  }
+}

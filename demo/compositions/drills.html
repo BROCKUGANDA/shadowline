@@ -1,0 +1,21 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #060b09; overflow: hidden; }
+    .shot { position: absolute; object-fit: cover; }
+    #main { left: 0; top: 0; width: 1920px; height: 1080px; }
+    #caption { position: absolute; left: 90px; bottom: 84px; z-index: 5; font-family: Inter, sans-serif; font-weight: 800; font-size: 44px; color: #f4f1e8; letter-spacing: -0.01em; background: rgba(6,11,9,.72); padding: 10px 22px; border-left: 6px solid #34d399; border-radius: 4px; }
+    #sub { position: absolute; left: 92px; bottom: 44px; z-index: 5; font-family: "JetBrains Mono", monospace; font-size: 20px; color: #8aa596; background: rgba(6,11,9,.72); padding: 4px 12px; }
+  </style>
+  <div id="root" data-composition-id="drills" data-width="1920" data-height="1080">
+    <img id="main" class="clip shot" data-start="0" data-duration="5" src="assets/captures/05-drills.png" alt="Combine Drill Explorer" />
+    <div id="caption" class="clip" data-start="0.4" data-duration="4.5">6,310 combine drill attempts — every one canonicalised</div>
+    <div id="sub" class="clip" data-start="1.1" data-duration="3.8">10 Hz · 3-cone / shuttle / forty · only reversals yield MRI</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#main", { scale: 1.35, transformOrigin: "62% 36%" }, { scale: 1.0, transformOrigin: "62% 36%", duration: 1.6, ease: "power3.inOut" }, 0);
+    tl.fromTo("#caption", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.45, ease: "power3.out" }, 0.4);
+    tl.fromTo("#sub", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 1.1);
+    window.__timelines["drills"] = tl;
+  </script>
+</template>

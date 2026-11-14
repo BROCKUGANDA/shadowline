@@ -1,0 +1,26 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #060b09; overflow: hidden; }
+    .ta { position: absolute; left: 140px; right: 140px; font-family: Inter, sans-serif; font-weight: 800; color: #f4f1e8; letter-spacing: -0.02em; }
+    #t1 { top: 150px; font-size: 64px; line-height: 1.12; }
+    #t2 { top: 400px; font-size: 64px; line-height: 1.12; color: #f4f1e8; }
+    #t2 b { color: #f87171; }
+    #stopwatch { position: absolute; left: 140px; top: 760px; font-family: "JetBrains Mono", monospace; font-size: 300px; font-weight: 700; color: #1e352a; letter-spacing: -0.05em; }
+    #note { position: absolute; right: 140px; bottom: 130px; font-family: "JetBrains Mono", monospace; font-size: 20px; color: #8aa596; }
+  </style>
+  <div id="root" data-composition-id="tension" data-width="1920" data-height="1080">
+    <div class="clip" id="stopwatch" data-start="0" data-duration="3.5">4.28</div>
+    <h1 class="clip ta" id="t1" data-start="0.2" data-duration="3.3">The Combine times<br/>everything.</h1>
+    <h1 class="clip ta" id="t2" data-start="1.5" data-duration="2.0">It <b>measures</b> almost nothing.</h1>
+    <div class="clip" id="note" data-start="2.4" data-duration="1.1">0.01s PRECISION · ZERO MOVEMENT CONTEXT</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#t1", { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.5, ease: "power4.out" }, 0.2);
+    tl.fromTo("#stopwatch", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.4);
+    tl.fromTo("#stopwatch", { innerText: "10.00" }, { innerText: "4.28", duration: 1.6, ease: "steps(24)", snap: { innerText: 0.01 } }, 0.5);
+    tl.fromTo("#t2", { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.5, ease: "power4.out" }, 1.5);
+    tl.fromTo("#note", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 2.4);
+    window.__timelines["tension"] = tl;
+  </script>
+</template>

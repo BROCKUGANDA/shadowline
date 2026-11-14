@@ -1,0 +1,18 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #060b09; overflow: hidden; }
+    #funnel { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    #chip { position: absolute; left: 120px; bottom: 96px; font-family: "JetBrains Mono", monospace; font-size: 21px; color: #34d399; background: rgba(6,11,9,.82); border: 1px solid #1e352a; border-radius: 10px; padding: 12px 18px; letter-spacing: .05em; }
+    #chip b { color: #f4f1e8; }
+  </style>
+  <div id="root" data-composition-id="dataset" data-width="1920" data-height="1080">
+    <img id="funnel" class="clip" data-start="0" data-duration="4.5" src="assets/funnel.png" alt="Exposure funnel: 510 rookies to 23 analyzed" />
+    <div id="chip" class="clip" data-start="1.2" data-duration="3.3">SHA-256 verified · <b>9 / 9 files</b> · 22.6M tracking frames · pinned CC BY-NC 4.0</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#funnel", { scale: 1.18, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.9, ease: "power3.out" }, 0);
+    tl.fromTo("#chip", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.4 }, 1.2);
+    window.__timelines["dataset"] = tl;
+  </script>
+</template>

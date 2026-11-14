@@ -1,0 +1,62 @@
+name: demo-film
+
+# Renders the SHADOWLINE demo film (hyperframes) on the self-hosted VPS runner.
+# Manual trigger or any push touching the demo/ tree. Artifacts are uploaded;
+# the mp4 is also attached to a GitHub release when tagging with `demo-v*`.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['demo/**']
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: [self-hosted, linux, shadowline]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: System packages (ffmpeg + chromium runtime deps)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libnss3 libnspr4 libatk1.0-0t64 libatk-bridge2.0-0t64 libcups2t64 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2t64 libpango-1.0-0 libcairo2 || \
+          sudo apt-get install -y ffmpeg libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2 libpango-1.0-0 libcairo2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: demo/package-lock.json
+
+      - name: Install demo dependencies
+        working-directory: demo
+        run: npm ci --no-audit --no-fund
+
+      - name: Install headless chromium for hyperframes
+        working-directory: demo
+        run: npx playwright install chromium
+
+      - name: Lint composition
+        working-directory: demo
+        run: npx hyperframes check . --json
+
+      - name: Render film
+        working-directory: demo
+        run: npx hyperframes render . -o SHADOWLINE_demo.mp4
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: shadowline-demo-film
+          path: demo/SHADOWLINE_demo.mp4
+          retention-days: 90
+
+      - name: Attach to release on demo-v* tags
+        if: startsWith(github.ref, 'refs/tags/demo-v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: demo/SHADOWLINE_demo.mp4

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables='[{"id":"headline","type":"string","label":"Headline","default":"SHADOWLINE"}]'>
+<head>
+  <meta charset="utf-8" />
+  <title>SHADOWLINE — Ten Hertz of Truth (demo film)</title>
+  <style>
+    html, body { margin: 0; background: #060b09; overflow: hidden; }
+    #root { position: absolute; inset: 0; background: #060b09; }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="48" data-width="1920" data-height="1080">
+    <div id="scene-hook" class="clip" data-track-kind="graphics" data-composition-id="hook" data-composition-src="compositions/hook.html" data-start="0" data-duration="3.5" data-track-index="1" data-width="1920" data-height="1080"></div>
+    <div id="scene-tension" class="clip" data-track-kind="graphics" data-composition-id="tension" data-composition-src="compositions/tension.html" data-start="3.5" data-duration="3.5" data-track-index="2" data-width="1920" data-height="1080"></div>
+    <div id="scene-reveal" class="clip" data-track-kind="graphics" data-composition-id="reveal" data-composition-src="compositions/reveal.html" data-start="7" data-duration="2.5" data-track-index="3" data-width="1920" data-height="1080"></div>
+    <div id="scene-dataset" class="clip" data-track-kind="graphics" data-composition-id="dataset" data-composition-src="compositions/dataset.html" data-start="9.5" data-duration="4.5" data-track-index="4" data-width="1920" data-height="1080"></div>
+    <div id="scene-drills" class="clip" data-track-kind="graphics" data-composition-id="drills" data-composition-src="compositions/drills.html" data-start="14" data-duration="5" data-track-index="5" data-width="1920" data-height="1080"></div>
+    <div id="scene-mri" class="clip" data-track-kind="graphics" data-composition-id="mri" data-composition-src="compositions/mri.html" data-start="19" data-duration="5" data-track-index="6" data-width="1920" data-height="1080"></div>
+    <div id="scene-coverage" class="clip" data-track-kind="graphics" data-composition-id="coverage" data-composition-src="compositions/coverage.html" data-start="24" data-duration="5" data-track-index="7" data-width="1920" data-height="1080"></div>
+    <div id="scene-verdict" class="clip" data-track-kind="graphics" data-composition-id="verdict" data-composition-src="compositions/verdict.html" data-start="29" data-duration="6.5" data-track-index="8" data-width="1920" data-height="1080"></div>
+    <div id="scene-payoff" class="clip" data-track-kind="graphics" data-composition-id="payoff" data-composition-src="compositions/payoff.html" data-start="35.5" data-duration="5" data-track-index="9" data-width="1920" data-height="1080"></div>
+    <div id="scene-end" class="clip" data-track-kind="graphics" data-composition-id="end" data-composition-src="compositions/end.html" data-start="40.5" data-duration="7.5" data-track-index="10" data-width="1920" data-height="1080"></div>
+    <div id="scene-grain" class="clip" data-track-kind="graphics" data-composition-id="grain" data-composition-src="compositions/grain.html" data-start="0" data-duration="48" data-track-index="20" data-width="1920" data-height="1080"></div>
+    <audio id="aud-bed" class="clip" data-start="0" data-duration="48" data-volume="0.85" src="assets/audio/bed.mp3"></audio>
+    <audio id="aud-swell" class="clip" data-start="6.4" data-duration="2.4" data-volume="0.9" src="assets/audio/chime.mp3"></audio>
+    <audio id="aud-payoff" class="clip" data-start="40.6" data-duration="2" data-volume="0.8" src="assets/audio/chime.mp3"></audio>
+    <audio id="aud-thud" class="clip" data-start="29" data-duration="1.5" data-volume="0.9" src="assets/audio/thud.mp3"></audio>
+  </div>
+  <script src="assets/gsap.min.js"></script>
+  <script>
+    window.__timelines["main"] = gsap.timeline({ paused: true });
+  </script>
+</body>
+</html>

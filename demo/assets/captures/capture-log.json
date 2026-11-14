@@ -1,0 +1,22 @@
+{
+  "capturedAt": "2026-11-14T03:45:56.583Z",
+  "base": "https://shadowline.aiazimara.com",
+  "log": [
+    "console.error: Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092' violates the following Content Security Policy directive: \"script-src 'self' 'unsafe-inline'\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+    "landing captured",
+    "console.error: Loading the script 'https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092' violates the following Content Security Policy directive: \"script-src 'self' 'unsafe-inline'\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback. The action has been blocked.",
+    "logged in, app shell captured",
+    "module Command Center captured",
+    "module Player Explorer captured",
+    "module Tracking Laboratory captured",
+    "module Combine Drill Explorer captured",
+    "module Movement Intelligence captured",
+    "module NFL Coverage Analysis captured",
+    "module Combine-to-Game Translation captured",
+    "module Athlete Comparison captured",
+    "module Scouting Report Generator captured",
+    "console.error: Failed to load resource: the server responded with a status of 500 ()",
+    "module Research Evidence & Model Audit captured",
+    "module Dataset & Pipeline Health captured"
+  ]
+}

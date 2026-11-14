@@ -1,0 +1,23 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: radial-gradient(1200px 700px at 50% 46%, #0e241c 0%, #060b09 70%); overflow: hidden; }
+    #mark { position: absolute; left: 50%; top: 330px; transform: translate(-50%, -50%); width: 300px; height: 300px; }
+    #word { position: absolute; left: 0; right: 0; top: 620px; text-align: center; font-family: Inter, sans-serif; font-weight: 800; font-size: 148px; letter-spacing: .18em; color: #f4f1e8; }
+    #tag { position: absolute; left: 0; right: 0; top: 815px; text-align: center; font-family: "JetBrains Mono", monospace; font-size: 22px; letter-spacing: .4em; color: #34d399; }
+    #by { position: absolute; left: 0; right: 0; top: 880px; text-align: center; font-family: Inter, sans-serif; font-size: 17px; letter-spacing: .3em; color: #8aa596; }
+  </style>
+  <div id="root" data-composition-id="reveal" data-width="1920" data-height="1080">
+    <img id="mark" class="clip" data-start="0.1" data-duration="2.4" src="assets/logo-mark.svg" alt="SHADOWLINE mark" />
+    <div id="word" class="clip" data-start="0.55" data-duration="1.95">SHADOWLINE</div>
+    <div id="tag" class="clip" data-start="1.15" data-duration="1.35">COMBINE-TO-GAME MOVEMENT INTELLIGENCE</div>
+    <div id="by" class="clip" data-start="1.5" data-duration="1.0">BY AI AZIMARA</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#mark", { opacity: 0, scale: 0.6, rotate: -18 }, { opacity: 1, scale: 1, rotate: 0, duration: 0.7, ease: "back.out(1.4)" }, 0.1);
+    tl.fromTo("#word", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.7, ease: "power3.out" }, 0.55);
+    tl.fromTo("#tag", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4 }, 1.15);
+    tl.fromTo("#by", { opacity: 0 }, { opacity: 1, duration: 0.35 }, 1.5);
+    window.__timelines["reveal"] = tl;
+  </script>
+</template>

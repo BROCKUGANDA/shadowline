@@ -1,0 +1,21 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #060b09; overflow: hidden; }
+    #l1 { position: absolute; left: 90px; top: 330px; right: 90px; font-family: Inter, sans-serif; font-weight: 800; font-size: 118px; line-height: 1.02; color: #f4f1e8; letter-spacing: -0.02em; }
+    #l1 em { font-style: normal; color: #34d399; }
+    #l2 { position: absolute; left: 92px; top: 640px; right: 200px; font-family: "JetBrains Mono", monospace; font-size: 26px; color: #8aa596; line-height: 1.6; }
+    #l3 { position: absolute; left: 92px; bottom: 92px; font-family: "JetBrains Mono", monospace; font-size: 20px; color: #f87171; letter-spacing: .08em; }
+  </style>
+  <div id="root" data-composition-id="payoff" data-width="1920" data-height="1080">
+    <h1 id="l1" class="clip" data-start="0" data-duration="5">The null<br/>is the <em>result.</em></h1>
+    <p id="l2" class="clip" data-start="0.8" data-duration="4.2">Pre-registered. Player-clustered. Bootstrapped.<br/>The pipeline reports what the data says — nothing more.</p>
+    <p id="l3" class="clip" data-start="1.6" data-duration="3.4">DECISION RULE: NOT MET — HONESTLY REPORTED</p>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#l1", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.62, ease: "power4.out" }, 0.1);
+    tl.fromTo("#l2", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 0.8);
+    tl.fromTo("#l3", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 1.6);
+    window.__timelines["payoff"] = tl;
+  </script>
+</template>
